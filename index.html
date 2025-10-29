@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Innovation & Impact Fund — Grants to Boost Economy & Communities</title>
+  <meta name="description" content="Innovation & Impact Fund: grants for job creation, clean energy, small business growth, AI & semiconductor technology to strengthen the U.S. economy and reduce inequality." />
+  <style>
+    :root{
+      --bg:#f6f8fb;
+      --card:#ffffff;
+      --muted:#55606a;
+      --primary:#001f3f;       /* Navy Blue */
+      --accent:#87ceeb;        /* Sky Blue */
+      --accent-2:#5eb8e5;      /* Slightly deeper Sky Blue for gradient */
+      --highlight:#ff6f61;     /* Coral */
+      --radius:12px;
+      --shadow:0 8px 24px rgba(0,0,0,0.08);
+      font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:var(--bg);color:var(--primary);}
+    .wrap{max-width:1000px;margin:0px auto;padding:20px;}
+    header{display:flex;align-items:center;flex-direction:column;gap:12px;margin-bottom:40px}
+    .brand{display:flex;align-items:center;flex-direction:column;gap:8px}
+    .logo{width:58px;height:58px;border-radius:14px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:18px}
+    h1{margin:0;font-size:22px;color:var(--primary);}
+    .tagline{margin:0;color:var(--muted);font-size:14px}
+
+    nav{display:flex;gap:15px;flex-wrap:wrap;justify-content:center;}
+     nav a{text-decoration:none;color:var(--muted);font-weight:500;}
+    nav a:hover{color:var(--accent);}
+    .btn-primary{background:var(--accent);color:white;padding:10px 16px;border-radius:12px;text-decoration:none;font-weight:700;transition:background 0.2s;}
+    .btn-primary:hover{background:var(--accent-2);}
+
+    .hero{display:flex;flex-direction:column;align-items:center;text-align:center;gap:20px;padding:30px;border-radius:var(--radius);background:#f0f4f8;box-shadow:var(--shadow);}
+    .hero h2{margin:0;font-size:28px;color:var(--primary);}
+    .hero p{margin-top:10px;color:var(--muted);line-height:1.5;}
+    .search-row{display:flex;gap:12px;margin-top:18px}
+    input[type="search"], select{padding:12px;border-radius:10px;border:1px solid #d6e3ef;font-size:14px;flex:1;transition:border 0.2s}
+    input[type="search"]:focus, select:focus{border-color:var(--accent);outline:none;}
+    .small-pill{background:var(--accent-2);color:white;padding:6px 12px;border-radius:999px;font-size:12px;display:inline-block;margin-right:8px;margin-top:6px;font-weight:600;}
+
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minimax(280px,1fr));gap:20px;margin-top:20px;}
+    .card{background:var(--card);padding:20px;border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid rgba(0,31,63,0.08);transition:transform 0.2s;}
+    .card:hover{transform:translateY(-4px);}
+    .card h3{margin:0;font-size:18px;color:var(--primary);}
+    .meta{color:var(--muted);font-size:13px;margin-top:6px}
+    .right{text-align:right}
+    .amount{font-weight:800;color:var(--highlight)}
+    .pill{background:#fce7e5;color:var(--highlight);padding:6px 10px;border-radius:999px;font-size:12px;display:inline-block;margin-right:6px;margin-top:8px;font-weight:500}
+
+    .card-footer{display:flex;justify-content:space-between;align-items:center;margin-top:14px}
+    .link-btn{background:transparent;border:1px solid var(--accent);color:var(--accent);padding:8px 12px;border-radius:10px;cursor:pointer;transition:all 0.2s;}
+    .link-btn:hover{background:var(--accent);color:white;}
+    .apply-btn{background:var(--accent);border:none;color:white;padding:10px 14px;border-radius:12px;cursor:pointer;font-weight:700;transition:background 0.2s;}
+    .apply-btn:hover{background:var(--accent-2);}
+
+    .sidebar{background:var(--card);padding:20px;border-radius:var(--radius);box-shadow:var(--shadow);height:fit-content;}
+    .list-item{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px dashed #e0e7ef}
+
+    .info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}
+    .info{background:#fff;padding:16px;border-radius:12px;border:1px solid #e6edf3}
+
+    footer{margin-top:40px;padding-top:20px;border-top:1px solid #e6edf3;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;align-items:center}
+
+    /* Modal */
+    .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.45);display:flex;align-items:center;justify-content:center;z-index:50}
+    .modal{width:100%;max-width:720px;background:white;padding:24px;border-radius:14px;box-shadow:0 30px 80px rgba(0,0,0,0.6);position:relative}
+    .close-x{position:absolute;right:12px;top:10px;background:#f6f9f9;border-radius:8px;padding:6px;cursor:pointer;transition:background 0.2s;}
+    .close-x:hover{background:var(--accent-2);color:white;}
+
+    /* responsive */
+    @media (max-width:960px){
+      .hero{grid-template-columns:1fr;padding:16px}
+      .grid{grid-template-columns:1fr}
+      .info-grid{grid-template-columns:1fr}
+      /*nav a{display:none}<-- REMOVE THIS LINE*
+    }
+    .logo-img {
+  width: 70px;          /* wider look for an oval */
+  height: 44px;         /* shorter height */
+  object-fit: contain;  /* ensures it’s not distorted */
+  border-radius: 50%;   /* softens the oval edge */
+  margin-right: 8px;    /* gives space from text */
+  box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+}
+  </style>
+</head>
+<body>
+  <div class="wrap" role="main">
+    <header>
+      <div class="brand">
+  <img src="innovation.png" alt="Innovation & Impact Fund Logo" class="logo-img"
+ 
+  <div>
+      
+    <h1>Innovation & Impact Fund</h1>
+    <p class="tagline">Grants that create jobs, support immigrants, and strengthen U.S. communities.</p>
+  </div>
+</div>
+
+      <nav aria-label="Primary navigation">
+        <a href="#about">About</a>
+        <a href="#grants">Grants</a>
+        <a href="#apply">How to Apply</a>
+        <a href="#success" id="successLink" style="color:black; margin:0 10px; text-decoration:none;">Success Stories</a>
+        <a class="btn-primary" href="#contact">Contact</a>
+      </nav>
+    </header>
+    <div class="search-row" role="search" aria-label="Search grants">
+          <input id="q" type="search" placeholder="Search grants, sectors, or keywords" />
+          <select id="sector" aria-label="Filter by sector" style="max-width:200px">
+            <option value="All">All Sectors</option>
+            <option>Clean Energy</option>
+            <option>Small Business</option>
+            <option>AI & Emerging Tech</option>
+            <option>Semiconductor Production</option>
+            <option>Workforce & Job Creation</option>
+          </select>
+          <button id="reset" class="link-btn">Reset</button>
+        </div>
+
+    <!-- hero -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div>
+        <h2 id="hero-title">Giving funding to boost the economy and reduce inequality</h2>
+        <p>Our grants focus on empowering immigrants in U.S. cities—supporting small businesses, community initiatives, innovative projects, and technology-driven solutions that create opportunities and strengthen local economies.</p>
+
+        <div style="margin-top:14px">
+          <span class="small-pill">Priority: Jobs</span>
+          <span class="small-pill">Priority: Clean Energy</span>
+          <span class="small-pill">Priority: Small Business</span>
+          <span class="small-pill">Priority: Community</span>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- grants -->
+    <section id="grants">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <h3 style="margin:0">Available Grants</h3>
+        <div id="count" style="color:var(--muted);font-size:13px">Showing 0 results</div>
+      </div>
+      <div class="grid" id="grants-grid" style="margin-top:16px" aria-live="polite"></div>
+    </section>
+    <aside class="sidebar" aria-label="Open opportunities">
+        <h4 style="margin:0 0 12px 0">Open Calls</h4>
+        <div id="open-list"></div>
+        <div style="margin-top:14px;font-size:13px;color:var(--muted)">Tip: We prioritize applications with clear job targets and measurable community impact.</div>
+      </aside>
+
+      <div class="info-grid">
+        <div class="info"><strong>Eligibility</strong><p style="color:var(--muted);margin-top:8px">U.S.-based organizations: small businesses, nonprofits, local governments, community orgs. Some solicitations restrict to small businesses.</p></div>
+        <div class="info"><strong>Focus Areas</strong><p style="color:var(--muted);margin-top:8px">Job creation, clean energy, small biz scale-up, community empowerment.</p></div>
+        <div class="info"><strong>What We Expect</strong><p style="color:var(--muted);margin-top:8px">Clear KPIs, realistic budgets, community partnership, and timelines tied to job metrics.</p></div>
+      </div>
+      
+      <!-- how to apply -->
+    <section id="apply" style="margin-top:28px">
+      <h3 style="margin:0">How We Operate — Quick Guide</h3>
+      <p style="color:var(--muted);margin-top:8px">At the Innovation and Impact Fund, our primary mission is to create real opportunities for immigrants and communities across U.S. cities. We work through a transparent, inclusive, and results-driven process to ensure that every grant we give has a measurable impact.</p>
+
+      <ol style="margin-top:14px;color:var(--muted)">
+        <li>Confirm eligibility & read the solicitation.</li>
+        <li>Register your organization (EIN, SAM if federal), prepare budget & milestones.</li>
+        <li>Submit summary abstract and implementation plan before deadline.</li>
+        <li>Selected applicants submit detailed proposal and performance metrics.</li>
+        <li>Occasionally run internal checks and distribute grants accordingly to citizens.</li>
+      </ol>
+      
+    </section>
+    <!-- SUCCESS STORIES SECTION -->
+<section id="success" style="display:none; max-width:1000px; margin:50px auto; padding:30px; overflow:hidden; transition:max-height 0.6s ease;">
+  <h2 style="text-align:center; color:#075985;">Success Stories</h2>
+  <p style="text-align:center; color:#555;">Real people. Real impact. Discover how our grants are changing lives.</p>
+
+  <div class="grid" style="display:grid; gap:20px; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); margin-top:30px;">
+
+    <article class="card" style="background:white; border-radius:10px; box-shadow:0 3px 10px rgba(0,0,0,0.1); padding:16px;">
+      <img src="empowerment.jpeg" alt="Joe's Business Expansion" style="width:100%; border-radius:10px;">
+      <h3 style="margin-top:12px; color:#075985;">Joe's Business Expansion</h3>
+      <p style="color:#555;">With our start-up grant, Joe expanded his business and hired twenty workers, bringing fresh flavor to his neighborhood.</p>
+    </article>
+
+    <article class="card" style="background:white; border-radius:10px; box-shadow:0 3px 10px rgba(0,0,0,0.1); padding:16px;">
+      <img src="women.jpeg" alt="Women Empowerment" style="width:100%; border-radius:10px;">
+      <h3 style="margin-top:12px; color:#075985;">Women Empowerment</h3>
+      <p style="color:#555;">A group of women developers launched an app that connects small farmers to local markets.</p>
+    </article>
+
+    <article class="card" style="background:white; border-radius:10px; box-shadow:0 3px 10px rgba(0,0,0,0.1); padding:16px;">
+      <img src="community.jpeg" alt="Community Empowerment" style="width:100%; border-radius:10px;">
+      <h3 style="margin-top:12px; color:#075985;">Community Empowerment</h3>
+      <p style="color:#555;">With our community grant, this group installed solar panels for 40 low-income homes.</p>
+    </article>
+
+  </div>
+</section>
+
+<!-- SCRIPT TOGGLE SUCCESS STORIES WITH SLIDE EFFECT -->
+<script>
+  document.getElementById('successLink').addEventListener('click', function(e) {
+    e.preventDefault();
+    const section = document.getElementById('success');
+
+    if (section.style.display === 'none' || section.style.display === '') {
+      section.style.display = 'block';
+      section.style.maxHeight = section.scrollHeight + 'px';
+      section.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      section.style.maxHeight = '0';
+      setTimeout(() => section.style.display = 'none', 600);
+    }
+  });
+</script>
+
+    <footer style="margin-top:32px">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+        <div>
+          <strong>Innovation & Impact Fund</strong>
+          <div style="color:var(--muted);font-size:13px">Strengthening the economy through targeted investment.</div>
+        </div>
+        <div style="text-align:right;color:var(--muted);font-size:13px">
+          Contact: <a href="mailto:d.ethanrhodes@innovationimpact.eu.us.org" style="color:var(--accent-2);text-decoration:none">d.ethanrhodes@innovationimpact.us.eu.org</a><br>
+          (579)7923092
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- modal root -->
+  <div id="modal-root" style="display:none"></div>
+
+<script>
+    /* Sample dataset tailored to your org goals */
+    const GRANTS = [
+      {
+        id: "iif-001",
+        title: "Community Business Support Fund",
+        sector: " Community and Business Grants",
+        amount: "$2,000,000",
+        deadline: "2026-02-28",
+        description: "Funding for local businesses that hire or train at least 50% immigrant employees, helping them expand operations or buy new equipment.",
+        eligibility: ["U.S.-based", "Public-private partnerships encouraged"]
+      },
+      {
+        id: "iif-002",
+        title: "Clean Energy Community Grants",
+        sector: "Clean Energy",
+        amount: "$400,000",
+        deadline: "2026-03-20",
+        description: "Fund community solar and energy-efficiency projects in underserved areas to reduce costs and create green jobs.",
+        eligibility: ["Nonprofits, municipal entities, community cooperatives"]
+      },
+      {
+        id: "iif-003",
+        title: "Small Business Scale & Hire Program",
+        sector: "Small Business",
+        amount: "$150,000",
+        deadline: "2026-01-15",
+        description: "Support small businesses to scale operations and add employees; emphasis on minority-owned companies.",
+        eligibility: ["Small businesses (US-based), demonstrated growth plan"]
+      },
+      {
+        id: "iif-004",
+        title: "Women & Youth Entrepreneurs Grant",
+        sector: "Community and Business Grants",
+        amount: "$1,000,000",
+        deadline: "2026-04-05",
+        description: "Grant for immigrant women or young adults launching innovative projects that create jobs or promote cultural exchange..",
+        eligibility: ["Immigrant women/young adults (18-35) residing legally in the U.S"]
+      }
+    ];
+
+    const grantsGrid = document.getElementById('grants-grid');
+    const countEl = document.getElementById('count');
+    const qInput = document.getElementById('q');
+    const sectorSel = document.getElementById('sector');
+    const resetBtn = document.getElementById('reset');
+    const openList = document.getElementById('open-list');
+    const modalRoot = document.getElementById('modal-root');
+
+    function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' })[c]); }
+
+    function renderOpenList(){
+      openList.innerHTML = '';
+      GRANTS.slice(0,4).forEach(g=>{
+        const div = document.createElement('div');
+        div.className = 'list-item';
+        div.innerHTML = '<div><strong style="font-size:14px">'+escapeHtml(g.title)+'</strong><div style="color:var(--muted);font-size:13px;margin-top:6px">'+escapeHtml(g.amount)+' • '+escapeHtml(g.deadline)+'</div></div>';
+        const btn = document.createElement('button');
+        btn.className = 'apply-btn';
+        btn.textContent = 'Apply';
+        btn.onclick = ()=> openApplyModal(g);
+        div.appendChild(btn);
+        openList.appendChild(div);
+      });
+    }
+
+    function renderGrid(filterText='', sectorFilter='All'){
+      const q = filterText.trim().toLowerCase();
+      const filtered = GRANTS.filter(g=>{
+        const matchesQ = !q || g.title.toLowerCase().includes(q) || g.description.toLowerCase().includes(q) || g.sector.toLowerCase().includes(q);
+        const matchesSector = sectorFilter === 'All' || g.sector === sectorFilter;
+        return matchesQ && matchesSector;
+      });
+
+      grantsGrid.innerHTML = '';
+      filtered.forEach(g=>{
+        const card = document.createElement('article');
+        card.className = 'card';
+        card.innerHTML = `
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px">
+            <div>
+              <h3>${escapeHtml(g.title)}</h3>
+              <div class="meta">${escapeHtml(g.sector)}</div>
+            </div>
+            <div class="right">
+              <div class="amount">${escapeHtml(g.amount)}</div>
+              <div style="color:var(--muted);font-size:13px;margin-top:6px">Deadline: ${escapeHtml(g.deadline)}</div>
+            </div>
+          </div>
+          <p style="margin-top:12px;color:var(--muted);font-size:14px">${escapeHtml(g.description)}</p>
+          <div style="margin-top:10px">${g.eligibility.map(e=>`<span class="pill">${escapeHtml(e)}</span>`).join('')}</div>
+          <div class="card-footer">
+            <div style="font-size:13px;color:var(--muted)">${escapeHtml(g.sector)}</div>
+            <div>
+              <button class="link-btn" onclick="showDetails('${g.id}')">Details</button>
+              <button class="apply-btn" onclick="openApplyModalById('${g.id}')">Apply</button>
+            </div>
+          </div>
+        `;
+        grantsGrid.appendChild(card);
+      });
+
+      countEl.textContent = `Showing ${filtered.length} result${filtered.length !== 1 ? 's' : ''}`;
+    }
+
+    // Expose for inline handlers
+    window.showDetails = function(id){
+      const g = GRANTS.find(x=>x.id===id);
+      if(!g) return alert('Grant not found.');
+      const info = `${g.title}\n\nSector: ${g.sector}\nAmount: ${g.amount}\nDeadline: ${g.deadline}\n\n${g.description}\n\nEligibility:\n- ${g.eligibility.join('\n- ')}`;
+      alert(info);
+    };
+
+    window.openApplyModalById = function(id){
+      const g = GRANTS.find(x=>x.id===id);
+      if(g) openApplyModal(g);
+    };
+
+    function openApplyModal(grant){
+      modalRoot.innerHTML = '';
+      const wrapper = document.createElement('div');
+      wrapper.className = 'modal-backdrop';
+      wrapper.innerHTML = `
+        <div class="modal" role="dialog" aria-modal="true" aria-label="Apply for ${escapeHtml(grant.title)}">
+          <button class="close-x" aria-label="Close">&times;</button>
+          <h3 style="margin:0 0 8px 0">${escapeHtml(grant.title)}</h3>
+          <div style="color:var(--muted);font-size:13px;margin-bottom:12px">${escapeHtml(grant.sector)} • ${escapeHtml(grant.amount)} • Deadline: ${escapeHtml(grant.deadline)}</div>
+          <form id="apply-form">
+            <div style="display:flex;gap:10px;margin-bottom:10px">
+              <div style="flex:1"><label style="display:block;font-size:13px;margin-bottom:6px">Organization</label><input name="org" required style="width:100%;padding:10px;border-radius:8px;border:1px solid #eef6f7"></div>
+              <div style="flex:1"><label style="display:block;font-size:13px;margin-bottom:6px">Contact</label><input name="contact" required style="width:100%;padding:10px;border-radius:8px;border:1px solid #eef6f7"></div>
+            </div>
+            <div style="margin-bottom:10px">
+              <label style="display:block;font-size:13px;margin-bottom:6px">Email</label>
+              <input name="email" type="email" required style="width:100%;padding:10px;border-radius:8px;border:1px solid #eef6f7">
+            </div>
+            <div style="margin-bottom:10px">
+              <label style="display:block;font-size:13px;margin-bottom:6px">Project Summary (max 600 chars)</label>
+              <textarea name="abstract" rows="5" maxlength="600" required style="width:100%;padding:10px;border-radius:8px;border:1px solid #eef6f7"></textarea>
+            </div>
+            <div style="display:flex;justify-content:flex-end;gap:8px">
+              <button type="button" id="cancel" class="link-btn">Cancel</button>
+              <button type="submit" class="apply-btn">Submit Application</button>
+            </div>
+          </form>
+        </div>
+      `;
+      modalRoot.appendChild(wrapper);
+      modalRoot.style.display = 'block';
+
+      wrapper.querySelector('.close-x').onclick = closeModal;
+      wrapper.querySelector('#cancel').onclick = closeModal;
+      wrapper.addEventListener('click', (ev)=> { if(ev.target === wrapper) closeModal(); });
+
+      wrapper.querySelector('#apply-form').addEventListener('submit', function(e){
+        e.preventDefault();
+        const fd = new FormData(e.target);
+        const payload = {
+          grantId: grant.id,
+          organization: fd.get('org'),
+          contact: fd.get('contact'),
+          email: fd.get('email'),
+          abstract: fd.get('abstract')
+        };
+        // REAL APP: POST to API with auth & validation. Demo: console log + alert.
+        console.log('I&I Demo application payload:', payload);
+        alert('Application received (demo):\\n' + grant.title + '\\nOrganization: ' + payload.organization);
+        closeModal();
+      });
+
+      function closeModal(){ modalRoot.style.display='none'; modalRoot.innerHTML=''; }
+    }
+
+    function applyFilters(){
+      const q = qInput.value;
+      const s = sectorSel.value;
+      renderGrid(q, s);
+    }
+
+    resetBtn.onclick = function(){ qInput.value=''; sectorSel.value='All'; applyFilters(); };
+    qInput.addEventListener('keyup',(e)=>{ if(e.key==='Enter') applyFilters(); });
+    sectorSel.addEventListener('change', applyFilters);
+
+    // initialize
+    (function init(){
+      // populate open calls and grid
+      renderOpenList();
+      renderGrid();
+    })();
+  </script>
+</body>
+</html>
